@@ -47,11 +47,21 @@
                                 upload</span> or drag and drop</p>
                         <p class="text-xs text-gray-500 ">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                     </div>
-                    <input id="dropzone-file" type="file" class="hidden" />
+                    <input id="dropzone-file" @change="importFile" type="file" name="file" ref="UploadFile"/>
                 </label>
             </div>
+
+            <button type="button"
+                class="mt-4 text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center  mr-2 mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class = "mr-2" width="25" height="25" viewBox="0 0 24 24">
+                    <path fill="currentColor" 
+                        d="M12 16q-.425 0-.713-.288T11 15V7.85L9.125 9.725q-.3.3-.7.3T7.7 9.7q-.3-.3-.287-.712T7.7 8.3l3.6-3.6q.15-.15.325-.212T12 4.425q.2 0 .375.063t.325.212l3.6 3.6q.3.3.288.713T16.3 9.7q-.3.3-.713.313t-.712-.288L13 7.85V15q0 .425-.288.713T12 16Zm-6 4q-.825 0-1.413-.588T4 18v-2q0-.425.288-.713T5 15q.425 0 .713.288T6 16v2h12v-2q0-.425.288-.713T19 15q.425 0 .713.288T20 16v2q0 .825-.588 1.413T18 20H6Z" />
+                    </svg>
+                Upload
+            </button>
         </div>
     </div>
+
     <!-- LINKS -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -66,10 +76,12 @@
             txt_file: "",
         },
         methods: {
-            
+            importFile() {
+                var fileVal = document.getElementById("dropzone-file");
+                this.txt_file = fileVal.files[0]
+            }
         }
     })
-
 </script>
 
 
