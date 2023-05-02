@@ -24,6 +24,35 @@
         href="https://fonts.googleapis.com/css2?family=Electrolize&family=Inconsolata:wght@400;500;600&family=Poppins&display=swap"
         rel="stylesheet">
 
+    <style>
+        .hasImage:hover section {
+            background-color: rgba(5, 5, 5, 0.4);
+        }
+
+        .hasImage:hover button:hover {
+            background: rgba(5, 5, 5, 0.45);
+        }
+
+        #overlay p,
+        i {
+            opacity: 0;
+        }
+
+        #overlay.draggedover {
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        #overlay.draggedover p,
+        #overlay.draggedover i {
+            opacity: 1;
+        }
+
+        .group:hover .group-hover\:text-blue-800 {
+            color: #2b6cb0;
+        }
+    </style>
+
+
 </head>
 
 <body>
@@ -79,7 +108,7 @@
 
                     <!-- sticky footer -->
                     <footer class="flex justify-end px-8 pb-8 pt-4">
-                        <button id="submit"
+                        <button id="submit" @click="importFile()"
                             class="rounded-sm px-3 py-1 bg-green-500 hover:bg-green-600 text-white focus:shadow-outline focus:outline-none">
                             Upload
                         </button>
@@ -168,6 +197,24 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 </body>
+
+
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            localhost: "http://localhost:5000",
+            txt_file: "",
+            fileContent: "",
+        },
+        methods: {
+            importFile() {
+                var fileVal = document.getElementById("hidden-input");
+                this.txt_file = fileVal.files[0]
+        }
+    }
+    })
+</script>
 
 <script>
     const fileTempl = document.getElementById("file-template"),
@@ -277,11 +324,11 @@
         }
     };
 
-    // print all selected files
-    document.getElementById("submit").onclick = () => {
-        alert(`Submitted Files:\n${JSON.stringify(FILES)}`);
-        console.log(FILES);
-    };
+    // // print all selected files
+    // document.getElementById("submit").onclick = () => {
+    //     alert(`Submitted Files:\n${JSON.stringify(FILES)}`);
+    //     console.log(FILES);
+    // };
 
     // clear entire selection
     document.getElementById("cancel").onclick = () => {
@@ -293,31 +340,3 @@
         gallery.append(empty);
     };
 </script>
-
-<style>
-    .hasImage:hover section {
-        background-color: rgba(5, 5, 5, 0.4);
-    }
-
-    .hasImage:hover button:hover {
-        background: rgba(5, 5, 5, 0.45);
-    }
-
-    #overlay p,
-    i {
-        opacity: 0;
-    }
-
-    #overlay.draggedover {
-        background-color: rgba(255, 255, 255, 0.7);
-    }
-
-    #overlay.draggedover p,
-    #overlay.draggedover i {
-        opacity: 1;
-    }
-
-    .group:hover .group-hover\:text-blue-800 {
-        color: #2b6cb0;
-    }
-</style>
