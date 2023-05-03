@@ -37,7 +37,7 @@ def view():
         file.save(file.filename)
 
         filename = file.filename 
-       
+        print(filename)
         variables_list = []
         with open(filename) as f: 
             for i , each_line in enumerate(f):
