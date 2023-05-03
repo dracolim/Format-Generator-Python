@@ -37,7 +37,7 @@ def view():
         file.save(file.filename)
 
         filename = file.filename 
-
+       
         variables_list = []
         with open(filename) as f: 
             for i , each_line in enumerate(f):
@@ -54,13 +54,19 @@ def view():
                     item = temp_new_list[i]
 
                     if "MC" in item:
-                        new_item = temp_new_list[i] + " " + temp_new_list[i + 1]
-                        del temp_new_list[i+1]
-                        temp_new_list[i] = new_item
+                        if len(item) > 3:
+                            # SCENARIO 1: the "MC" is connected
+                            index_of_MC = item.index("MC")
+                            word_1 = item[0 : index_of_MC]
+                            word_2 = item[index_of_MC : ]
+                            new_item = word_1 + " " + word_2
+                            temp_new_list[i] = new_item
+                        else:
+                            # SCENARIO 2: the "MC" is separated from the next itme
+                            new_item = temp_new_list[i] + " " + temp_new_list[i + 1]
+                            del temp_new_list[i+1]
+                            temp_new_list[i] = new_item
 
-                # format_line = "%-4s%-8s%-15s%-15s%-16s"
-                # new_line = format_line.format(temp_list[0] , temp_list[1] , temp_list[2] , temp_list[3], temp_list[4])
-               
                 variables = (temp_new_list[0] , temp_new_list[1] , temp_new_list[2] , temp_new_list[3], temp_new_list[4])
                 variables_list.append(variables)
 
