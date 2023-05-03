@@ -22,8 +22,11 @@ app = Flask(__name__)
 app.app_context().push()
 app.secret_key = b'a secret key'
 
-
 CORS(app)
+
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 
 # IMPORT
