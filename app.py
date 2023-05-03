@@ -63,11 +63,13 @@ def view():
             with open('result/results.txt', 'w') as writer:
                 for each_var in variables_list:
                     writer.write('%-4s%-8s%-15s%-15s%-16s \n' % each_var)
+            path = "./result/results.txt"
 
     except FileNotFoundError:
         print("File not Found")
 
-    return send_from_directory(os.path.join(UPLOAD_FOLDER), "results.txt")
+    
+    return send_file(path , as_attachment = True)
 
 
 
