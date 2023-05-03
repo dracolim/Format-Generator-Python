@@ -64,6 +64,24 @@
                     class="relative h-full flex flex-col bg-white shadow-xl rounded-md" ondrop="dropHandler(event);"
                     ondragover="dragOverHandler(event);" ondragleave="dragLeaveHandler(event);"
                     ondragenter="dragEnterHandler(event);">
+
+                    <p class="ml-8 mt-3">
+                        <span class="font-semibold">Steps:</span>
+                        <ol class="ml-8">
+                            <li>
+                                1. Click "Select File" or "Drag" file into the box
+                            </li>
+                            <li>
+                                2. Click "Upload"
+                            </li>
+                            <li>
+                                3. After it has been downloaded, click on "Delete All"
+                            </li>
+                            <li>
+                                4. Repeat :)
+                            </li>
+                        </ol>
+                    </p>
                     <!-- overlay -->
                     <div id="overlay"
                         class="w-full h-full absolute top-0 left-0 pointer-events-none z-50 flex flex-col items-center justify-center rounded-md">
@@ -85,7 +103,7 @@
                                 <span>Drag and drop your</span>&nbsp;<span>files anywhere or</span>
                             </p>
 
-                            <input id="hidden-input" type="file" name = "file" ref="file" multiple class="hidden"
+                            <input id="hidden-input" type="file" name="file" ref="file" multiple class="hidden"
                                 v-on:change="handleFileUpload()" />
 
                             <button id="button"
@@ -217,14 +235,25 @@
 
                 var url = this.localhost + "/import"
                 axios.post(url,
-                        formData, {
+                        formData,
+                        {
                             headers: {
                                 'Content-Type': 'multipart/form-data'
                             }
-                        }
-                    ).then(function () {
+                        },
+                        {responseType : 'blob'}
+                    )
+                .then(function (response) {
                         console.log('SUCCESS!!');
-                        
+                        console.log(response.data)
+
+                        const url = window.URL.createObjectURL(new Blob([response.data]));
+
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.setAttribute('download', 'file.txt');
+                        document.body.appendChild(link);
+                        link.click();
                     })
                     .catch(function () {
                         console.log('FAILURE!!');
