@@ -4,14 +4,23 @@ import json
 import base64
 from io import BytesIO
 from flask_cors import CORS
+from werkzeug.utils import secure_filename
 
 # from flask_login import login_required, current_user
 app = Flask(__name__)
+
+UPLOAD_FOLDER = 'result'
+
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # CORS(app)
 app = Flask(__name__)
 app.app_context().push()
 app.secret_key = b'a secret key'
+
 
 CORS(app)
 
@@ -51,15 +60,16 @@ def view():
                 variables = (temp_new_list[0] , temp_new_list[1] , temp_new_list[2] , temp_new_list[3], temp_new_list[4])
                 variables_list.append(variables)
 
-            with open('results.txt', 'w') as writer:
+            with open('result/results.txt', 'w') as writer:
                 for each_var in variables_list:
                     writer.write('%-4s%-8s%-15s%-15s%-16s \n' % each_var)
 
     except FileNotFoundError:
         print("File not Found")
 
-    return 'hello'
+    return send_from_directory(os.path.join(UPLOAD_FOLDER), "results.txt")
+
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', debug=True)
