@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, render_template, request, redirect, url_for , send_file, send_from_directory
 import os
+from os import environ
 import json
 import base64
 from io import BytesIO
@@ -73,4 +74,4 @@ def view():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port = 5000 ,debug=True)
+    app.run(host='0.0.0.0', port=environ.get("PORT", 5000) ,debug=True)
