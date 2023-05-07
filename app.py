@@ -72,7 +72,7 @@ def view():
 
             with open('result/results.txt', 'w') as writer:
                 for each_var in variables_list:
-                    writer.write('%-4s%-8s%-25s%-25s%-16s \n\n\n' % each_var)
+                    writer.write('%-4s%-8s%-25s%-25s%-16s \n' % each_var)
             path = "./result/results.txt"
 
     except FileNotFoundError:
