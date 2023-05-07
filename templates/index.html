@@ -234,7 +234,7 @@
                 formData.append('file', this.txt_file);
 
                 var url = this.localhost + "/import"
-                axios.post(url,
+                axios.post("/import",
                         formData, {
                             headers: {
                                 'Content-Type': 'multipart/form-data'
