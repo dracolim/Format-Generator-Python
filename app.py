@@ -77,8 +77,7 @@ def view():
 
     except FileNotFoundError:
         print("File not Found")
-
-    
+        
     return send_file(path , as_attachment = True)
 
 

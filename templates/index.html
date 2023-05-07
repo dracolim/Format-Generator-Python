@@ -102,9 +102,9 @@
                             <p class="mb-3 font-semibold text-gray-900 flex flex-wrap justify-center">
                                 <span>Drag and drop your</span>&nbsp;<span>files anywhere or</span>
                             </p>
-
+                            
                             <input id="hidden-input" type="file" name="file" ref="file" multiple class="hidden"
-                                v-on:change="handleFileUpload()" />
+                                v-on:change="handleFileUpload" />
 
                             <button id="button"
                                 class="text-white mt-2 rounded-sm px-3 py-1  bg-green-500 hover:bg-green-600 focus:shadow-outline focus:outline-none">
@@ -259,10 +259,10 @@
                         console.log('FAILURE!!');
                     });
             },
-
             handleFileUpload() {
                 this.txt_file = this.$refs.file.files[0];
                 console.log(this.txt_file)
+                console.log("hello")
             }
 
         }
